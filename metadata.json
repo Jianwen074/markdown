@@ -1,0 +1,6 @@
+{
+  "name": "Markdown Editor & Document Preview",
+  "description": "A web application featuring a Markdown editor with a formatting toolbar and a live Document Preview pane with syntax highlighting. Allows users to write Markdown and see the rendered document in real-time. Styled with Tailwind CSS and uses Marked.js and Highlight.js.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

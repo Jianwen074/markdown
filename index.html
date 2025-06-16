@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Markdown Editor & Document Preview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <!-- Add Babel Standalone -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    /* For Webkit browsers like Chrome, Safari */
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #e5e7eb; /* gray-200 */
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #9ca3af; /* gray-400 */
+      border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #6b7280; /* gray-500 */
+    }
+    /* For Firefox */
+    .custom-scrollbar-firefox {
+      scrollbar-width: thin;
+      scrollbar-color: #9ca3af #e5e7eb; /* thumb track */
+    }
+    /* Styles for HTML preview content - Light Mode */
+    .prose-preview {
+      color: #1f2937; /* gray-800 */
+    }
+    .prose-preview h1, .prose-preview h2, .prose-preview h3, .prose-preview h4, .prose-preview h5, .prose-preview h6 {
+      color: #1d4ed8; /* blue-700 */
+      margin-top: 1em;
+      margin-bottom: 0.6em;
+      line-height: 1.4;
+      letter-spacing: 0.5px;
+    }
+    .prose-preview h1 { font-size: 2em; }
+    .prose-preview h2 { font-size: 1.5em; }
+    .prose-preview h3 { font-size: 1.25em; }
+    .prose-preview a {
+      color: #1e40af; /* blue-800 */
+      text-decoration: underline;
+    }
+    .prose-preview a:hover {
+      color: #1c3da2; /* blue-900 */
+    }
+    .prose-preview code:not(pre code) { /* Inline code */
+      background-color: #e5e7eb; /* gray-200 */
+      color: #111827; /* gray-900 */
+      padding: 0.2em 0.4em;
+      margin: 0;
+      font-size: 85%;
+      border-radius: 3px;
+    }
+    .prose-preview pre { /* Code block container */
+      background-color: #f3f4f6; /* gray-100 - base for atom-one-light */
+      padding: 1em;
+      overflow: auto;
+      border-radius: 6px;
+      border: 1px solid #d1d5db; /* gray-300 */
+      margin-bottom: 1em;
+    }
+    .prose-preview pre code.hljs { /* Let highlight.js style the code itself */
+      background: none; 
+      padding: 0;
+    }
+    .prose-preview blockquote {
+      border-left: 0.25em solid #9ca3af; /* gray-400 */
+      color: #4b5563; /* gray-600 */
+      padding-left: 1em;
+      margin-left: 0;
+      margin-bottom: 1em;
+      letter-spacing: 0.8px;
+      line-height: 1.7;
+    }
+    .prose-preview ul, .prose-preview ol {
+      padding-left: 2em;
+      margin-bottom: 1em;
+    }
+    .prose-preview li {
+      margin-bottom: 0.25em;
+      letter-spacing: 0.8px;
+      line-height: 1.7;
+    }
+    .prose-preview ul {
+      list-style-type: disc;
+    }
+    .prose-preview ol {
+      list-style-type: decimal;
+    }
+     .prose-preview ul ul, .prose-preview ol ol {
+        margin-top: 0.25em;
+        margin-bottom: 0.25em;
+    }
+    .prose-preview ul ul { list-style-type: circle; }
+    .prose-preview ul ul ul { list-style-type: square; }
+
+    .prose-preview table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-bottom: 1em;
+    }
+    .prose-preview th, .prose-preview td {
+      border: 1px solid #d1d5db; /* gray-300 */
+      padding: 0.5em;
+    }
+    .prose-preview th {
+      background-color: #e5e7eb; /* gray-200 */
+    }
+    .prose-preview img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 4px;
+      margin-bottom: 1em;
+      background-color: #f9fafb; /* gray-50 - slight bg for images */
+      border: 1px solid #e5e7eb; /* gray-200 - slight border for images */
+    }
+    .prose-preview p {
+        margin-bottom: 1em;
+        letter-spacing: 0.8px;
+        line-height: 1.7;
+    }
+    .prose-preview hr {
+        border-top: 1px solid #cbd5e1; /* slate-300 */
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
+
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/client": "https://esm.sh/react-dom@^19.1.0/client",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/",
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "marked": "https://esm.sh/marked@^4.0.0"
+  }
+}
+</script>
+</head>
+<body class="bg-gray-100">
+  <div id="root"></div>
+  <!-- Update script type to text/babel, add data-presets and data-type="module" -->
+  <script type="text/babel" data-presets="react,typescript" data-type="module" src="index.tsx"></script>
+</body>
+</html>
