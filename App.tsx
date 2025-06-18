@@ -1,7 +1,7 @@
 
 
 import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { marked, MarkedOptions } from 'marked'; // Import marked and MarkedOptions
+import { marked } from 'marked'; // Import marked and MarkedOptions
 
 // Declare hljs and ClipboardItem to inform TypeScript about global variables
 declare global {
@@ -104,8 +104,8 @@ interface ToolbarItemWithAction extends ToolbarItemConfig {
 interface EditorPaneProps {
   title: string;
   markdown: string;
-  onInputChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  textareaRef: React.RefObject<HTMLTextAreaElement>;
+  onInputChange: (event: React.ChangeEvent<HTMLTextAreaElement | null>) => void;
+  textareaRef: React.RefObject<HTMLTextAreaElement | null>;
   toolbarItems: ToolbarItemWithAction[];
   onClearEditor: () => void;
 }
@@ -152,7 +152,7 @@ EditorPaneComponent.displayName = 'EditorPaneComponent';
 const App: React.FC = () => {
   // Left Editor State (Markdown Editor)
   const [leftMarkdown, setLeftMarkdown] = useState<string>(getMarkdownFromURL);
-  const leftTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const leftTextareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [leftDesiredSelectionStart, setLeftDesiredSelectionStart] = useState<number | null>(null);
   const [leftDesiredSelectionEnd, setLeftDesiredSelectionEnd] = useState<number | null>(null);
 
@@ -166,7 +166,7 @@ const App: React.FC = () => {
 
   // Configure marked on component mount
   useEffect(() => {
-    const options: MarkedOptions & { highlight?: (code: string, lang: string) => string } = {
+    const options: marked.MarkedOptions & { highlight?: (code: string, lang: string) => string } = {
         gfm: true,
         breaks: true,
         pedantic: false,
@@ -213,7 +213,7 @@ const App: React.FC = () => {
     }
   }, [leftDesiredSelectionStart, leftDesiredSelectionEnd]); // Runs only when desired selection changes
 
-  const handleLeftInputChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleLeftInputChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement | null>) => {
     setLeftMarkdown(event.target.value);
   }, [setLeftMarkdown]);
 
@@ -349,7 +349,7 @@ const App: React.FC = () => {
 
 
   const createToolbarActions = (
-    textareaRef: React.RefObject<HTMLTextAreaElement>,
+    textareaRef: React.RefObject<HTMLTextAreaElement | null>,
     setMarkdown: React.Dispatch<React.SetStateAction<string>>,
     setDesiredSelectionStart: React.Dispatch<React.SetStateAction<number | null>>,
     setDesiredSelectionEnd: React.Dispatch<React.SetStateAction<number | null>>
